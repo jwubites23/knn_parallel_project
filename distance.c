@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <omp.h>
 
 double euclidean_distance(double *pointA, double *pointB, int dims) {
     double distance = 0.0;
@@ -29,6 +30,22 @@ double **many_to_many_distances(double **points_A, double **points_B, int length
     
     for (int i=0; i<length_A; i++)
         distances[i] = one_to_many_distances(points_A[i], points_B, length_B, dims);
+    
+    return distances;
+}
+
+double **many_to_many_distances_omp(double **points_A, double **points_B, int length_A, int length_B, int dims) {
+    
+    double ** distances;
+    distances = malloc(sizeof(double)*length_A);
+    for (int i=0; i<length_A; i++)
+        distances[i] = (double *)malloc(length_B * sizeof(double));
+    
+    #pragma omp parallel for
+    for (int i=0; i<length_A; i++){
+        double *temp = one_to_many_distances(points_A[i], points_B, length_B, dims);
+        distances[i] = temp;
+    }
     
     return distances;
 }

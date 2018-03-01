@@ -91,10 +91,10 @@ void test_quickargsort(){
     
     int *sort;
     sort = (int*)malloc(sizeof(int)*5);
-    sort[0] = 2;
+    sort[0] = 3;
     sort[1] = 1;
-    sort[2] = 3;
-    sort[3] = 0;
+    sort[2] = 0;
+    sort[3] = 2;
     sort[4] = 4;
     
     int *sorted = quickargsort(a, 5, 2);
