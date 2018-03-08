@@ -5,11 +5,7 @@
 #include <sys/time.h>
 #define BILLION  1000000000L;
 
-int main() {
-    int dims = 2;
-    int n = 500000;
-    int m = 200;
-    int k = 5;
+void knn_parallel(int n, int m, int dims, int k, char *filename) {
     srand(10811);
     
     // generate pseudo-random reference points
@@ -54,7 +50,6 @@ int main() {
         exit( EXIT_FAILURE );
     }
     double accum1=(mid.tv_sec-start.tv_sec)+(double)(mid.tv_nsec-start.tv_nsec)/BILLION;
-    printf("Distance time: %lf s\n", accum1);
     
     // calculate mean outcome of k nearest neighbours
     double* mean_outcome;
@@ -76,7 +71,10 @@ int main() {
         exit( EXIT_FAILURE );
     }
     double accum2=(end.tv_sec-mid.tv_sec)+(double)(end.tv_nsec-mid.tv_nsec)/BILLION;
-    printf("Sort time: %lf s\n", accum2);
     
-    return 0;
+    FILE * fp;
+    fp = fopen(filename, "a+");
+    fprintf(fp, "%d,%d,%d,%d,%lf,%lf,%s\n", n, m, dims, k, accum1, accum2, "parallel");
+    fclose(fp);
+    
 }
