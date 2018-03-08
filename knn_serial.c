@@ -3,6 +3,7 @@
 #include "functions.h"
 #include <time.h>
 #include <sys/time.h>
+#include <string.h>
 #define BILLION  1000000000L;
 
 void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function) {
@@ -58,14 +59,35 @@ void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_fu
     int* ranks;
     ranks = (int*)malloc(sizeof(double)*n);
     
-    for (int i=0; i<m; i++){
-        mean_outcome[i] = 0.0;
-        ranks = quickargsort(distances[i], n, 2);    
-        for (int j=0; j<k; j++)
-            mean_outcome[i] += outcome_points[ranks[j]];
-        
-        mean_outcome[i] /= (double)k;
-    }
+    if (strcmp(sort_function,"quick") == 0L)
+        for (int i=0; i<m; i++){
+            mean_outcome[i] = 0.0;
+            ranks = quickargsort(distances[i], n, 20);    
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[ranks[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
+    
+    if (strcmp(sort_function,"insertion") == 0L)
+        for (int i=0; i<m; i++){
+            mean_outcome[i] = 0.0;
+            ranks = insertionargsort(distances[i], n);    
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[ranks[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
+    
+    if (strcmp(sort_function,"merge") == 0L)
+        for (int i=0; i<m; i++){
+            mean_outcome[i] = 0.0;
+            ranks = mergeargsort(distances[i], n);    
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[ranks[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
     
     // stop timer
     if( clock_gettime( CLOCK_REALTIME, &end) == -1 ) {

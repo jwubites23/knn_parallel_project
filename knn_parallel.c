@@ -3,6 +3,7 @@
 #include "functions.h"
 #include <time.h>
 #include <sys/time.h>
+#include <string.h>
 #define BILLION  1000000000L;
 
 void knn_parallel(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function) {
@@ -55,15 +56,38 @@ void knn_parallel(int n, int m, int dims, int k, char *filename, char *distance_
     double* mean_outcome;
     mean_outcome = (double*)malloc(sizeof(double)*m);
     
-    #pragma omp parallel for collapse(1)
-    for (int i=0; i<m; i++){
-        int* rank = quickargsort(distances[i], n, 2);    
-        mean_outcome[i] = 0.0;
-        for (int j=0; j<k; j++)
-            mean_outcome[i] += outcome_points[rank[j]];
+    if (strcmp(sort_function,"quick") == 0L)
+        #pragma omp parallel for collapse(1)
+        for (int i=0; i<m; i++){
+            int* rank = quickargsort(distances[i], n, 20);    
+            mean_outcome[i] = 0.0;
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[rank[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
         
-        mean_outcome[i] /= (double)k;
-    }
+    if (strcmp(sort_function,"insertion") == 0L)
+        #pragma omp parallel for collapse(1)
+        for (int i=0; i<m; i++){
+            int* rank = insertionargsort(distances[i], n);    
+            mean_outcome[i] = 0.0;
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[rank[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
+        
+    if (strcmp(sort_function,"merge") == 0L)
+        #pragma omp parallel for collapse(1)
+        for (int i=0; i<m; i++){
+            int* rank = mergeargsort(distances[i], n);    
+            mean_outcome[i] = 0.0;
+            for (int j=0; j<k; j++)
+                mean_outcome[i] += outcome_points[rank[j]];
+            
+            mean_outcome[i] /= (double)k;
+        }
     
     // stop timer
     if( clock_gettime( CLOCK_REALTIME, &end) == -1 ) {
