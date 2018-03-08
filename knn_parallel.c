@@ -98,7 +98,7 @@ void knn_parallel(int n, int m, int dims, int k, char *filename, char *distance_
     
     FILE * fp;
     fp = fopen(filename, "a+");
-    fprintf(fp, "%d,%d,%d,%d,%lf,%lf,%s,%s,%s\n", n, m, dims, k, accum1, accum2, "serial", distance_function, sort_function);
+    fprintf(fp, "%d,%d,%d,%d,%lf,%lf,%s,%s,%s\n", n, m, dims, k, accum1, accum2, "parallel", distance_function, sort_function);
     fclose(fp);
     
 }

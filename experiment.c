@@ -7,7 +7,7 @@ int main(){
     
     int dims = 2;
     int k = 5;
-    int n[10] = {25000, 50000, 75000, 100000, 125000, 150000, 175000, 200000, 225000, 250000};
+    int n[10] = {50000, 75000, 100000, 125000, 150000, 175000, 200000, 225000, 250000, 275000};
     int m[3] = {50, 150, 250};
     int insertion_sort_scale_down = 50L; //scale down size on n for insertion sort due to long run times
     
