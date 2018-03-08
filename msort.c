@@ -24,7 +24,7 @@ void merge(double *data, int *index, int l, int m, int r)
         
     for (j = 0; j < n2; j++){
         dataR[j] = data[m + 1+ j];
-        index[j] = index[m + 1+ j];
+        indexR[j] = index[m + 1+ j];
     }
         
     /* Merge the temp arrays back into arr[l..r]*/
