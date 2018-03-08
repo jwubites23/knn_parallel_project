@@ -29,9 +29,6 @@ int partition(int p, int r, double *data, int *index){
             l--;
         }while(data[l] > x);
         while(k<l){
-            //t=data[k];
-            //data[k]=data[l];
-            //data[l]=t;
             exchange(data, index, k, l);
             
             do{
@@ -41,9 +38,7 @@ int partition(int p, int r, double *data, int *index){
                 l--;
             }while(data[l]>x);
         }
-        //t=data[p];
-        //data[p]=data[l];
-        //data[l]=t;
+        
         exchange(data, index, p, l);
         return l;
     }
@@ -81,6 +76,7 @@ int *quickargsort(double *data, int length, int low_limit){
 }
 
 void test_quickargsort(){
+    printf("\n\n testing quick sort function: \n");
     double *a;
     a = (double*)malloc(sizeof(double)*5);
     a[0] = 3.0;
@@ -98,12 +94,9 @@ void test_quickargsort(){
     sort[4] = 4;
     
     int *sorted = quickargsort(a, 5, 2);
-    int error;
     
     for (int i=0; i<5; i++){
-        error = sort[i] - sorted[i];
-        error = sqrt(error*error);
-        if (error == 0){
+        if (sort[i] == sorted[i]){
             printf("pass %d", sort[i]);
             printf("     %d \n", sorted[i]);
         }

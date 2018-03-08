@@ -11,17 +11,21 @@ int main(){
     
     char *filename = "exp20180103.csv";
     
+    test_quickargsort();
+    test_insertionargsort();
+    test_mergeargsort();
+    
     
     FILE * fp;
     fp = fopen(filename, "w+");
-    fprintf(fp, "n,m,dims,k,time_dist,time_sort,serial_parallel\n");
+    fprintf(fp, "n,m,dims,k,time_dist,time_sort,serial_parallel,distance_function,sort_function\n");
     fclose(fp);
     
     for (int i=0; i<10; i++)
         for (int j=0; j<3; j++) {
             printf("i : %d, j: %d \n", i, j);
-            knn_serial(n[i], m[j], dims, k, filename);
-            knn_parallel(n[i], m[j], dims, k, filename);
+            knn_serial(n[i], m[j], dims, k, filename, "euclidean", "quicksort");
+            knn_parallel(n[i], m[j], dims, k, filename, "euclidean", "quicksort");
         }
     
     

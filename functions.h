@@ -8,6 +8,13 @@ void test_quickargsort();
 
 // isort
 int *insertionargsort(double *data, int length);
+void test_insertionargsort();
+
+// msort 
+void merge(double *data, int *index, int l, int m, int r);
+void mergesort(double *data, int *index, int l, int r);
+int *mergeargsort(double *data, int length);
+void test_mergeargsort();
 
 // distance
 double euclidean_distance(double *pointA, double *pointB, int dims);
@@ -17,5 +24,6 @@ double **many_to_many_distances_omp(double **points_A, double **points_B, int le
 void test_many_to_many_distances();
 
 // knn functions 
-void knn_serial(int n, int m, int dims, int k, char *filename);
-void knn_parallel(int n, int m, int dims, int k, char *filename);
+void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function);
+void knn_parallel(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function);
+

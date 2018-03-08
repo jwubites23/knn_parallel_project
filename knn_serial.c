@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #define BILLION  1000000000L;
 
-void knn_serial(int n, int m, int dims, int k, char *filename) {
+void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function) {
     srand(10811);
     
     // generate pseudo-random reference points
