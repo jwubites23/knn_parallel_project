@@ -15,6 +15,8 @@ int main(){
     test_insertionargsort();
     test_mergeargsort();
     
+    test_euclidean_distances();
+    test_manhattan_distances();
     
     FILE * fp;
     fp = fopen(filename, "w+");

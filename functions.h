@@ -18,10 +18,12 @@ void test_mergeargsort();
 
 // distance
 double euclidean_distance(double *pointA, double *pointB, int dims);
-double *one_to_many_distances(double *one_point, double **many_points, int many_length, int dims);
-double **many_to_many_distances(double **points_A, double **points_B, int length_A, int length_B, int dims);
-double **many_to_many_distances_omp(double **points_A, double **points_B, int length_A, int length_B, int dims);
-void test_many_to_many_distances();
+double manhattan_distance(double *pointA, double *pointB, int dims);
+double *one_to_many_distances(double *one_point, double **many_points, int many_length, int dims, char *dist_func);
+double **many_to_many_distances(double **points_A, double **points_B, int length_A, int length_B, int dims, char *dist_func);
+double **many_to_many_distances_omp(double **points_A, double **points_B, int length_A, int length_B, int dims, char *dist_func);
+void test_euclidean_distances();
+void test_manhattan_distances();
 
 // knn functions 
 void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_function, char *sort_function);

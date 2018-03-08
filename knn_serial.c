@@ -42,7 +42,7 @@ void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_fu
 
     
     // calculate all distances between reference points and query points
-    double **distances = many_to_many_distances(query_points, ref_points, m, n, dims);
+    double **distances = many_to_many_distances(query_points, ref_points, m, n, dims, distance_function);
     
     // stop timer
     if( clock_gettime( CLOCK_REALTIME, &mid) == -1 ) {
@@ -76,7 +76,7 @@ void knn_serial(int n, int m, int dims, int k, char *filename, char *distance_fu
     
     FILE * fp;
     fp = fopen(filename, "a+");
-    fprintf(fp, "%d,%d,%d,%d,%lf,%lf,%s\n", n, m, dims, k, accum1, accum2, "serial");
+    fprintf(fp, "%d,%d,%d,%d,%lf,%lf,%s,%s,%s\n", n, m, dims, k, accum1, accum2, "serial", distance_function, sort_function);
     fclose(fp);
     
     
