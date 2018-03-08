@@ -1,0 +1,86 @@
+---
+title: "Brute Force KNN parallelisation experiment"
+author: "Marc van Heerden (1769865)"
+date: "3/8/2018"
+output:
+    pdf_document:
+        latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Overview
+
+* A general introduction to the problem, algorithm, and its various applications. Cite the sources properly
+when applicable.
+* The solution to the problem, i.e., methodology.
+* Experiment setup – the description of data being used; the specifications of machine you run your tests
+on; the details of the tests you run; and most importantly, the results. Note: Do not just put your results
+in a table or a graph without giving any description of those in the text.
+* A summary of your work, plus some discussions on the challenges you encountered in the current
+solutions and other potential problems.
+
+## Parallelisation
+
+### Foster's methodology
+
+
+### Results
+More processes, more fun ...
+
+```{r cars}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(knitr))
+
+exp_data <- suppressMessages(readr::read_csv("exp20180308.csv"))
+
+median_data <- 
+    exp_data %>%
+    mutate(time = time_dist + time_sort) %>%
+    group_by(m,n, distance_function, sort_function, serial_parallel) %>%
+    summarise(time = median(time),
+              time_dist = median(time_dist),
+              time_sort = median(time_sort)) %>%
+    ungroup
+```
+
+
+```{r}
+
+median_data %>%
+    filter(sort_function == "quick",
+           distance_function == "euclidean",
+           m == 450L) %>%
+    kable(caption = "results boyeeee")
+
+```
+
+```{r}
+
+median_data %>%
+    filter(sort_function == "quick",
+           distance_function == "euclidean") %>%
+    ggplot(aes(n, time, color = serial_parallel)) +
+        geom_point() +
+        facet_grid(m~.) +
+        scale_y_log10(name = "time (log10 scale)", 
+                      breaks = c(0.03, 0.1, 0.3, 1, 3))
+
+```
+
+## Sorting algorithms
+
+
+## Distance functions
+
+
+
+## System specifications
+
+```{r}
+Sys.info()[1:3]
+system("lscpu", intern=TRUE)[1:13]
+```
+
