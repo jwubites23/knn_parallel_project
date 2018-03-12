@@ -3,8 +3,7 @@ title: "Brute force KNN parallelisation experiment"
 author: "Marc van Heerden (1769865)"
 date: "3/8/2018"
 output:
-    pdf_document:
-        latex_engine: xelatex
+  github_document
 ---
 
 ```{r setup, include=FALSE}

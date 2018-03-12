@@ -10,7 +10,7 @@ int main(){
     int k = 5;
     int n[5] = {10000, 15000, 20000, 25000, 30000};
     int m[5] = {50, 150, 250, 350, 450};
-    int insertion_sort_scale_down = 50L; //scale down size on n for insertion sort due to long run times
+    int insertion_sort_scale_down = 20L; //scale down size on n for insertion sort due to long run times
     
     char *sort_funcs[3];
     sort_funcs[0] = "insertion";
