@@ -6,7 +6,7 @@ Marc van Heerden (1769865)
 Overview
 --------
 
-K nearest neighbours is a commonly used algorithm that can be used for regression or classification. For this experiment we use the regression version of the algorithm. For a given problem there are n reference points and q query points. For a given integer k, the estimated value for a query point is given as the average value of the k nearest reference points.
+K nearest neighbours is a commonly used algorithm that can be used for regression or classification. For this experiment we use the regression version of the algorithm. For a given problem there are n reference points and m query points. For a given integer k, the estimated value for a query point is given as the average value of the k nearest reference points.
 
 There are various ways to compute the estimated values, in this report we attempt to improve the brute force method with parallelisation of the distance calculation and sorting calculation.
 
